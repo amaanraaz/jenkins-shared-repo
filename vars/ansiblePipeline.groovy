@@ -10,19 +10,19 @@ def call() {
                               userRemoteConfigs: [[url: 'https://github.com/amaanraaz/ansible-nginx.git']]])
                 }
             }
-            // stage('User Approval') {
-            //     steps {
-            //         script {
-            //             try {
-            //                 input message: 'Do you approve to execute the playbook?'
-            //             } catch (Exception e) {
-            //                 echo "User denied approval. Aborting pipeline."
-            //                 currentBuild.result = 'ABORTED'
-            //                 return // Exit the pipeline gracefully
-            //             }
-            //         }
-            //     }
-            // }
+            stage('User Approval') {
+                steps {
+                    script {
+                        try {
+                            input message: 'Do you approve to execute the playbook?'
+                        } catch (Exception e) {
+                            echo "User denied approval. Aborting pipeline."
+                            currentBuild.result = 'ABORTED'
+                            return // Exit the pipeline gracefully
+                        }
+                    }
+                }
+            }
             stage('Run Ansible Playbook') {
                 steps {
                     echo "Running Ansible playbook: install_nginx.yml"
